@@ -1,20 +1,62 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+    <ion-title>{{ studentNumber }}</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button [routerLink]="['/favourites']">
+        <ion-icon name="heart" slot="icon-only"></ion-icon>
+      </ion-button>
+
+      <ion-button [routerLink]="['/settings']">
+        <ion-icon name="settings" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="ion-padding">
+  <ion-item>
+    <ion-label position="stacked">Ingredient(s) (comma separated)</ion-label>
+    <ion-input
+      [(ngModel)]="query"
+      placeholder="e.g. chicken, rice, garlic"
+    ></ion-input>
+  </ion-item>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+  <ion-button
+    expand="block"
+    class="ion-margin-top"
+    (click)="search()"
+    [disabled]="loading || !query.trim()"
+  >
+    Search
+  </ion-button>
+
+  <div class="ion-margin-top" *ngIf="loading">
+    <ion-spinner></ion-spinner>
   </div>
+
+  <ion-text color="danger" *ngIf="error">
+    <p>{{ error }}</p>
+  </ion-text>
+
+  <ion-text *ngIf="!loading && searched && results.length === 0">
+    <p>No recipes found.</p>
+  </ion-text>
+
+  <ion-list *ngIf="!loading && results.length > 0" class="ion-margin-top">
+    <ion-item *ngFor="let r of results">
+      <ion-thumbnail slot="start">
+        <img [src]="r.image" [alt]="r.title" />
+      </ion-thumbnail>
+
+      <ion-label>
+        <h2>{{ r.title }}</h2>
+      </ion-label>
+
+      <ion-button slot="end" [routerLink]="['/recipe', r.id]">
+        Details
+      </ion-button>
+    </ion-item>
+  </ion-list>
 </ion-content>
