@@ -6,6 +6,11 @@ import { routes } from './app/app.routes';
 import { AppComponent } from './app/app.component';
 import { provideHttpClient } from '@angular/common/http';
 
+import { addIcons } from 'ionicons';
+import { heart, settings } from 'ionicons/icons';
+
+addIcons({ heart, settings });
+
 bootstrapApplication(AppComponent, {
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
