@@ -13,12 +13,12 @@ export const routes: Routes = [
     path: 'favourites',
     loadComponent: () => import('./pages/favourites/favourites.page').then((m) => m.FavouritesPage),
   },
-  // To add later:
-  // {
-  //   path: 'recipe/:id',
-  //   loadComponent: () => import('./pages/recipe-details/recipe-details.page').then((m) => m.RecipeDetailsPage),
-  // },
-
+  {
+  path: 'recipe/:id',
+  loadComponent: () =>
+    import('./pages/recipe-details/recipe-details.page')
+      .then((m) => m.RecipeDetailsPage),
+  },
   {
     path: '',
     redirectTo: 'home',
