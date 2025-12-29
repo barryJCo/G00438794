@@ -15,7 +15,6 @@ export interface ComplexSearchResponse {
 
 export interface RecipeInformationResponse {
   id: number;
-  title: string;
   image: string;
   extendedIngredients: Array<{
     original: string;
